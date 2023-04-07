@@ -1126,6 +1126,9 @@ async function getEnvironmentVariables({ buildTarget, buildType, version }) {
     SWAPS_USE_DEV_APIS: config.SWAPS_USE_DEV_APIS === '1',
     TOKEN_ALLOWANCE_IMPROVEMENTS: config.TOKEN_ALLOWANCE_IMPROVEMENTS === '1',
     TRANSACTION_SECURITY_PROVIDER: config.TRANSACTION_SECURITY_PROVIDER === '1',
+    MAINNET_RPC: config.MAINNET_RPC || '',
+    GOERLI_RPC: config.GOERLI_RPC || '',
+    SEPOLIA_RPC: config.SEPOLIA_RPC || '',
   };
 }
 

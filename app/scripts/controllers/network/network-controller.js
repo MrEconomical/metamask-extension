@@ -21,6 +21,9 @@ import {
   TEST_NETWORK_TICKER_MAP,
   CHAIN_IDS,
   NETWORK_TYPES,
+  MAINNET_RPC_OVERRIDE,
+  GOERLI_RPC_OVERRIDE,
+  SEPOLIA_RPC_OVERRIDE,
 } from '../../../../shared/constants/network';
 import {
   isPrefixedFormattedHexString,
@@ -208,10 +211,18 @@ export default class NetworkController extends EventEmitter {
     const { type } = this.getProviderConfig();
     const isInfura = INFURA_PROVIDER_TYPES.includes(type);
 
-    if (isInfura) {
-      this._checkInfuraAvailability(type);
-    } else {
+    if (
+      (type === NETWORK_TYPES.MAINNET && MAINNET_RPC_OVERRIDE)
+      || (type === NETWORK_TYPES.GOERLI && GOERLI_RPC_OVERRIDE)
+      || (type === NETWORK_TYPES.SEPOLIA && SEPOLIA_RPC_OVERRIDE)
+    ) {
       this.emit(NETWORK_EVENTS.INFURA_IS_UNBLOCKED);
+    } else {
+      if (isInfura) {
+        this._checkInfuraAvailability(type);
+      } else {
+        this.emit(NETWORK_EVENTS.INFURA_IS_UNBLOCKED);
+      }
     }
 
     let networkVersion;
@@ -438,6 +449,16 @@ export default class NetworkController extends EventEmitter {
   }
 
   _configureProvider({ type, rpcUrl, chainId }) {
+    if (type === NETWORK_TYPES.MAINNET && MAINNET_RPC_OVERRIDE) {
+      this._configureStandardProvider(MAINNET_RPC_OVERRIDE, chainId);
+      return;
+    } else if (type === NETWORK_TYPES.GOERLI && GOERLI_RPC_OVERRIDE) {
+      this._configureStandardProvider(GOERLI_RPC_OVERRIDE, chainId);
+      return;
+    } else if (type === NETWORK_TYPES.SEPOLIA && SEPOLIA_RPC_OVERRIDE) {
+      this._configureStandardProvider(SEPOLIA_RPC_OVERRIDE, chainId);
+      return;
+    }
     // infura type-based endpoints
     const isInfura = INFURA_PROVIDER_TYPES.includes(type);
     if (isInfura) {

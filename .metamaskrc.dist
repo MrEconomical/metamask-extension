@@ -11,3 +11,8 @@ TRANSACTION_SECURITY_PROVIDER=
 
 ; Set this to test changes to the phishing warning page.
 PHISHING_WARNING_PAGE_URL=
+
+; Default rpc overrides
+MAINNET_RPC=
+GOERLI_RPC=
+SEPOLIA_RPC=

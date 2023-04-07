@@ -3,7 +3,13 @@ const { readFile } = require('fs/promises');
 const ini = require('ini');
 const { BuildType } = require('../lib/build-type');
 
-const commonConfigurationPropertyNames = ['PUBNUB_PUB_KEY', 'PUBNUB_SUB_KEY'];
+const commonConfigurationPropertyNames = [
+  'PUBNUB_PUB_KEY',
+  'PUBNUB_SUB_KEY',
+  'MAINNET_RPC',
+  'GOERLI_RPC',
+  'SEPOLIA_RPC',
+];
 
 const configurationPropertyNames = [
   ...commonConfigurationPropertyNames,
@@ -110,7 +116,8 @@ async function getProductionConfig(buildType) {
     }
   }
 
-  const allValid = Object.values(requiredEnvironmentVariables).flat();
+  const optional = ['MAINNET_RPC', 'GOERLI_RPC', 'SEPOLIA_RPC']
+  const allValid = Object.values(requiredEnvironmentVariables).flat().concat(optional);
   for (const environmentVariable of Object.keys(prodConfig)) {
     if (!allValid.includes(environmentVariable)) {
       throw new Error(`Invalid environment variable: '${environmentVariable}'`);

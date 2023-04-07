@@ -242,14 +242,26 @@ export const AURORA_DISPLAY_NAME = 'Aurora Mainnet';
 export const CELO_DISPLAY_NAME = 'Celo Mainnet';
 
 export const infuraProjectId = process.env.INFURA_PROJECT_ID;
+export const MAINNET_RPC_OVERRIDE = process.env.MAINNET_RPC;
+export const GOERLI_RPC_OVERRIDE = process.env.GOERLI_RPC;
+export const SEPOLIA_RPC_OVERRIDE = process.env.SEPOLIA_RPC;
+
 export const getRpcUrl = ({
   network,
   excludeProjectId = false,
 }: {
   network: NetworkType;
   excludeProjectId?: boolean;
-}) =>
-  `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+}) => {
+  if (network === NETWORK_TYPES.MAINNET && MAINNET_RPC_OVERRIDE) {
+    return MAINNET_RPC_OVERRIDE;
+  } else if (network === NETWORK_TYPES.GOERLI && GOERLI_RPC_OVERRIDE) {
+    return GOERLI_RPC_OVERRIDE;
+  } else if (network === NETWORK_TYPES.SEPOLIA && SEPOLIA_RPC_OVERRIDE) {
+    return SEPOLIA_RPC_OVERRIDE;
+  }
+  return `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+};
 
 export const MAINNET_RPC_URL = getRpcUrl({
   network: NETWORK_TYPES.MAINNET,

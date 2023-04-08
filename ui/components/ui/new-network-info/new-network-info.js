@@ -31,7 +31,7 @@ const NewNetworkInfo = () => {
   const t = useContext(I18nContext);
   const history = useHistory();
   const [tokenDetectionSupported, setTokenDetectionSupported] = useState(false);
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const autoDetectToken = useSelector(getUseTokenDetection);
   const primaryTokenImage = useSelector(getNativeCurrencyImage);
   const currentProvider = useSelector(getProvider);

@@ -95,6 +95,7 @@ async function defineAndRunBuildTasks() {
       'harden',
       'console',
       'location',
+      'Image', // Used by browser to generate notifications
       // globals chrome driver needs to function (test env)
       /cdc_[a-zA-Z0-9]+_[a-zA-Z]+/iu,
       'performance',

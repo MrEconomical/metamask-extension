@@ -59,7 +59,6 @@ import { ControllerMessenger } from '@metamask/base-controller';
 import { EnsController } from '@metamask/ens-controller';
 import { PhishingController } from '@metamask/phishing-controller';
 import { AnnouncementController } from '@metamask/announcement-controller';
-import { NetworkController } from '@metamask/network-controller';
 import { GasFeeController } from '@metamask/gas-fee-controller';
 import {
   PermissionController,
@@ -211,6 +210,9 @@ import { STATIC_MAINNET_TOKEN_LIST } from '../../shared/constants/tokens';
 import { getTokenValueParam } from '../../shared/lib/metamask-controller-utils';
 import { isManifestV3 } from '../../shared/modules/mv3.utils';
 import { convertNetworkId } from '../../shared/modules/network.utils';
+
+import { NetworkController } from '../network-controller';
+
 import {
   ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
   handleMMITransactionUpdate,

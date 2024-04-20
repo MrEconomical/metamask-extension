@@ -252,8 +252,22 @@ export const getRpcUrl = ({
 }: {
   network: NetworkType;
   excludeProjectId?: boolean;
-}) =>
-  `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+}) => {
+  if (network == NETWORK_TYPES.MAINNET) {
+    return 'https://rpc.ankr.com/eth';
+  } else if (network == NETWORK_TYPES.GOERLI) {
+    return 'https://goerli.drpc.org';
+  } else if (network == NETWORK_TYPES.SEPOLIA) {
+    return 'https://rpc.ankr.com/eth_sepolia';
+  } else if (network == NETWORK_TYPES.LINEA_GOERLI) {
+    return 'https://rpc.goerli.linea.build';
+  } else if (network == NETWORK_TYPES.LINEA_SEPOLIA) {
+    return 'https://rpc.sepolia.linea.build';
+  } else if (network == NETWORK_TYPES.LINEA_MAINNET) {
+    return 'https://linea.drpc.org';
+  }
+  return `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
+};
 
 export const MAINNET_RPC_URL = getRpcUrl({
   network: NETWORK_TYPES.MAINNET,

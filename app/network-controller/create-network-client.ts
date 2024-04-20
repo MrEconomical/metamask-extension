@@ -32,6 +32,8 @@ import type {
 } from './types';
 import { NetworkClientType } from './types';
 
+import { getRpcOverride } from './overrides';
+
 const SECOND = 1000;
 
 /**
@@ -56,11 +58,10 @@ export function createNetworkClient(
 ): NetworkClient {
   const rpcApiMiddleware =
     networkConfig.type === NetworkClientType.Infura
-      ? createInfuraMiddleware({
-          network: networkConfig.network,
-          projectId: networkConfig.infuraProjectId,
-          maxAttempts: 5,
-          source: 'metamask',
+      ? createFetchMiddleware({
+          btoa: global.btoa,
+          fetch: global.fetch,
+          rpcUrl: getRpcOverride(networkConfig.network),
         })
       : createFetchMiddleware({
           btoa: global.btoa,

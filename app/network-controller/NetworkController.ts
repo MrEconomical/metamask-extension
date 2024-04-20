@@ -42,6 +42,8 @@ import type {
   NetworkClientConfiguration,
 } from './types';
 
+import { getRpcOverride } from './overrides';
+
 const log = createModuleLogger(projectLogger, 'NetworkController');
 
 /**
@@ -1169,9 +1171,8 @@ export class NetworkController extends BaseController<
     networkClientId: NetworkClientId,
   ): NetworkConfiguration | undefined {
     if (isInfuraNetworkType(networkClientId)) {
-      const rpcUrl = `https://${networkClientId}.infura.io/v3/${
-        this.#infuraProjectId
-      }`;
+      const networkClient = this.getNetworkClientById(networkClientId);
+      const rpcUrl = getRpcOverride(networkClient.configuration.network);
       return {
         rpcUrl,
         ...BUILT_IN_NETWORKS[networkClientId],

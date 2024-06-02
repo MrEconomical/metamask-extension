@@ -264,7 +264,7 @@ export const getRpcUrl = ({
   } else if (network == NETWORK_TYPES.LINEA_SEPOLIA) {
     return 'https://rpc.sepolia.linea.build';
   } else if (network == NETWORK_TYPES.LINEA_MAINNET) {
-    return 'https://linea.drpc.org';
+    return 'https://1rpc.io/linea';
   }
   return `https://${network}.infura.io/v3/${excludeProjectId ? '' : infuraProjectId}`;
 };
